@@ -3,7 +3,7 @@
     "_id": "abc12",
     "title": "Cannot edit a Car",
     "description": "problem when clicking Edit",
-    "severity": 4,
+    "severity": 123,
     "createdAt": 1542107358743
   },
   {

@@ -8,9 +8,11 @@ app.use(express.static('public'))
 app.use(cookieParser())
 app.use(express.json())
 
+
 //List
-app.get('/api/bug', (req, res) => {
-    bugService.query()
+app.get('/api/bug/', (req, res) => {
+    const filterBy = req.query
+    bugService.query(filterBy)
         .then(bugs => res.send(bugs))
 })
 

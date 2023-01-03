@@ -9,8 +9,13 @@ module.exports = {
 
 }
 
-function query() {
-    return Promise.resolve(bugs)
+function query(filterBy) {
+    let filterdBugs = bugs
+    if (filterBy.txt) {
+        const regex = new RegExp(filterBy.txt, 'i')
+        filterdBugs = filterdBugs.filter(bug => regex.test(bug.title) || regex.test(bug.description))
+    }
+    return Promise.resolve(filterdBugs)
 }
 
 function get(bugId) {

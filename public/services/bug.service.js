@@ -12,16 +12,17 @@ function getEmptyFilter() {
     return { txt: '' }
 }
 
-function query(filterBy) {
-    return axios.get(URL)
-        .then(res => {
-            let bugs = res.data
-            if (filterBy) {
-                const regex = new RegExp(filterBy.txt, 'i')
-                bugs = bugs.filter(bug => regex.test(bug.title) || regex.test(bug.description))
-            }
-            return bugs
-        })
+function query(filterBy = getEmptyFilter()) {
+    const queryParams = `?txt=${filterBy.txt}`
+    return axios.get(URL + queryParams).then(res => res.data)
+    // .then(res => {
+    //     let bugs = res.data
+    //     if (filterBy) {
+    //         const regex = new RegExp(filterBy.txt, 'i')
+    //         bugs = bugs.filter(bug => regex.test(bug.title) || regex.test(bug.description))
+    //     }
+    //     return bugs
+    // })
 }
 
 function getById(bugId) {

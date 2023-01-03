@@ -8,7 +8,7 @@ const { useState, useEffect } = React
 export function BugIndex() {
 
     const [bugs, setBugs] = useState([])
-    const [filterBy, setFilterBy] = useState(null)
+    const [filterBy, setFilterBy] = useState(bugService.getEmptyFilter())
 
     useEffect(() => {
         loadBugs()
