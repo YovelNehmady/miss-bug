@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "abc12",
+    "title": "Cannot edit a Car",
+    "description": "problem when clicking Edit",
+    "severity": 4,
+    "createdAt": 1542107358743
+  },
+  {
+    "_id": "abc123",
+    "title": "Cannot open the details page ",
+    "description": "problem when clicking Details",
+    "severity": 3,
+    "createdAt": 1542107359454
+  },
+  {
+    "title": "123",
+    "description": "123",
+    "severity": 123,
+    "_id": "RNMyP",
+    "createdAt": 1672677325227
+  },
+  {
+    "title": "12",
+    "description": "12",
+    "severity": 12,
+    "_id": "8QDf0",
+    "createdAt": 1672682705649
+  },
+  {
+    "title": "yovel",
+    "description": "too sexi",
+    "severity": 70,
+    "_id": "rINie",
+    "createdAt": 1672753836259
+  }
+]
