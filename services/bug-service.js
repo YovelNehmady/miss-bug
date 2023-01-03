@@ -6,15 +6,24 @@ module.exports = {
     save,
     get,
     remove
-
 }
 
 function query(filterBy) {
     let filterdBugs = bugs
+
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         filterdBugs = filterdBugs.filter(bug => regex.test(bug.title) || regex.test(bug.description))
     }
+
+    if (filterBy.label) {
+        filterdBugs = filterdBugs.filter(bug => bug.labels.some(label => label === filterBy.label))
+    }
+
+    if (filterBy.sortBy) {
+        filterdBugs.sort((b1, b2) => (b1[filterBy.sortBy] - b2[filterBy.sortBy]) * filterBy.desc)
+    }
+
     return Promise.resolve(filterdBugs)
 }
 

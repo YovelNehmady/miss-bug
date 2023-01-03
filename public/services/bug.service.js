@@ -9,20 +9,12 @@ export const bugService = {
 }
 
 function getEmptyFilter() {
-    return { txt: '' }
+    return { txt: '', sortBy: '', desc: 1, label: '' }
 }
 
 function query(filterBy = getEmptyFilter()) {
-    const queryParams = `?txt=${filterBy.txt}`
+    const queryParams = `?txt=${filterBy.txt}&sortBy=${filterBy.sortBy}&desc=${filterBy.desc}&label=${filterBy.label}`
     return axios.get(URL + queryParams).then(res => res.data)
-    // .then(res => {
-    //     let bugs = res.data
-    //     if (filterBy) {
-    //         const regex = new RegExp(filterBy.txt, 'i')
-    //         bugs = bugs.filter(bug => regex.test(bug.title) || regex.test(bug.description))
-    //     }
-    //     return bugs
-    // })
 }
 
 function getById(bugId) {

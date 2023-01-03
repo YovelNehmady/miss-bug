@@ -1,37 +1,42 @@
 [
-  {
-    "_id": "abc12",
-    "title": "Cannot edit a Car",
-    "description": "problem when clicking Edit",
-    "severity": 4,
-    "createdAt": 1542107358743
+    { 
+      "_id" : "abc111", 
+      "title" : "have nothing to bing in Netflix", 
+      "description" : "problem when spend time", 
+      "severity" : 9, 
+      "createdAt" : 1542107359454, 
+      "labels" : ["critical", "need-CR", "dev-branch"]
   },
-  {
-    "_id": "abc123",
-    "title": "Cannot open the details page ",
-    "description": "problem when clicking Details",
-    "severity": 3,
-    "createdAt": 1542107359454
+    { 
+      "_id" : "abc222", 
+      "title" : "Cannot save a Car", 
+      "description" : "problem when clicking Save", 
+      "severity" : 3, 
+      "createdAt" : 154210738895, 
+      "labels" : ["critical", "dev-branch"]
   },
-  {
-    "title": "123",
-    "description": "123",
-    "severity": 123,
-    "_id": "RNMyP",
-    "createdAt": 1672677325227
+    { 
+      "_id" : "abc333", 
+      "title" : "Cannot edit a Car", 
+      "description" : "problem when clicking Edit", 
+      "severity" : 3, 
+      "createdAt" : 1542107359189, 
+      "labels" : [ "need-CR", "dev-branch"]
   },
-  {
-    "title": "12",
-    "description": "12",
-    "severity": 12,
-    "_id": "8QDf0",
-    "createdAt": 1672682705649
+    { 
+      "_id" : "abc444", 
+      "title" : "Cannot selete a Car", 
+      "description" : "problem when clicking Drlrt", 
+      "severity" : 3, 
+      "createdAt" : 159853359454, 
+      "labels" : [ "dev-branch"]
   },
-  {
-    "title": "1234",
-    "description": "1234",
-    "severity": 1234,
-    "_id": "M2yJf",
-    "createdAt": 1672682715751
+    { 
+      "_id" : "abc555", 
+      "title" : "Cannot add a new car", 
+      "description" : "problem when clicking New car", 
+      "severity" : 3, 
+      "createdAt" : 1542107359854, 
+      "labels" : [ "need-CR", "dev-branch"]
   }
 ]
