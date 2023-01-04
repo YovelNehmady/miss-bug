@@ -1,5 +1,6 @@
 const utilService = require('./util.service.js')
 let bugs = require('../data/bug.json')
+const  userService  = require('./user-service.js')
 
 module.exports = {
     query,
@@ -41,7 +42,9 @@ function remove(bugId) {
     return utilService.writeBugsToFile(bugs).then(() => bugs)
 }
 
-function save(bug) {
+function save(bug, miniUser) {
+    const validMiniUser = userService.validateToken(miniUser)
+    const creator = { _id: validMiniUser._id, fullname: validMiniUser.fullname }
     if (bug._id) {
         const bugToUpdate = bugs.find(currBug => currBug._id === bug._id)
         bugToUpdate.title = bug.title
@@ -50,6 +53,7 @@ function save(bug) {
     } else {
         bug._id = utilService.makeId()
         bug.createdAt = Date.now()
+        bug.creator = creator
         bugs.push(bug)
     }
     return utilService.writeBugsToFile(bugs).then(() => bug)

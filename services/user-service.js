@@ -14,9 +14,7 @@ module.exports = {
     getLoginToken,
     validateToken
 }
-function getLoginToken(user) {
-    return cryptr.encrypt(JSON.stringify(user))
-}
+
 
 function query(filterBy) {
     let fillteredUsers = users
@@ -47,9 +45,14 @@ function signup({ fullname, username, password }) {
 }
 
 function login(credentials) {
-    const user = users.find(u => u.username === credentials.username)
+    const user = users.find(u => u.username === credentials.username && u.password === credentials.password)
     if (!user) return Promise.reject('Login failed')
     return Promise.resolve(user)
+}
+
+function getLoginToken(user) {
+    const miniUser = { fullname: user.fullname , _id: user._id }
+    return cryptr.encrypt(JSON.stringify(miniUser))
 }
 
 function validateToken(loginToken) {
@@ -71,7 +74,6 @@ function _makeId(length = 5) {
     }
     return text;
 }
-
 
 function _writeUsersToFile() {
     return new Promise((res, rej) => {

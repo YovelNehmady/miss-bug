@@ -27,8 +27,9 @@ app.put('/api/bug/:bugId', (req, res) => {
 
 //Create - post
 app.post('/api/bug/', (req, res) => {
+    const miniUser = req.cookies.loginToken
     const bug = req.body
-    bugService.save(bug)
+    bugService.save(bug, miniUser)
         .then(savedBug => res.send(savedBug))
 })
 
@@ -108,8 +109,10 @@ app.post('/api/user/logout', (req, res) => {
 // Signup
 app.post('/api/user/signup', (req, res) => {
     const { fullname, username, password } = req.body
-    userService.signup({fullname, username, password})
+    userService.signup({ fullname, username, password })
         .then(user => {
+            const loginToken = userService.getLoginToken(user)
+            res.cookie('loginToken', loginToken)
             res.send(user)
         })
         .catch(err => {
