@@ -1,4 +1,3 @@
-import { utilService } from './util.service.js'
 
 const BASE_URL = '/api/user/'
 
@@ -49,22 +48,6 @@ function logout() {
 }
 
 function _saveLoggedinUser(user) {
+    console.log('here')
     sessionStorage.setItem('loggedinUser', JSON.stringify(user))
-}
-
-function _createUsers() {
-    let users = utilService.loadFromStorage(USER_KEY)
-    if (!users || !users.length) {
-        users = []
-        users.push(_createUser('Muki Da', 'muki'))
-        users.push(_createUser('Puki Ba', 'puki'))
-
-        utilService.saveToStorage(USER_KEY, users)
-    }
-}
-
-function _createUser(fullname, username, password) {
-    const user = getEmptyCredentials(fullname, username, password)
-    user._id = utilService.makeId()
-    return user
 }

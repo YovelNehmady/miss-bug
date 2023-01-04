@@ -74,15 +74,50 @@ app.get('/api/user', (req, res) => {
 // Read
 app.get('/api/user/:userId', (req, res) => {
     const { userId } = req.params
-        userService.get(userId)
-            .then((user) => {
-                res.send(user)
-            })
-            .catch(err => {
-                console.log('Error:', err)
-                res.status(400).send('Cannot get user')
-            })
+    userService.get(userId)
+        .then((user) => {
+            res.send(user)
+        })
+        .catch(err => {
+            console.log('Error:', err)
+            res.status(400).send('Cannot get user')
+        })
 })
+
+// Login
+app.post('/api/user/login', (req, res) => {
+    const { username, password } = req.body
+    userService.login({ username, password })
+        .then(user => {
+            const loginToken = userService.getLoginToken(user)
+            res.cookie('loginToken', loginToken)
+            res.send(user)
+        })
+        .catch(err => {
+            res.status(400).send('Cannot get user')
+        })
+})
+
+// Logout
+app.post('/api/user/logout', (req, res) => {
+    res.clearCookie('loginToken')
+    res.send('Logged out')
+})
+
+
+// Signup
+app.post('/api/user/signup', (req, res) => {
+    const { fullname, username, password } = req.body
+    userService.signup({fullname, username, password})
+        .then(user => {
+            res.send(user)
+        })
+        .catch(err => {
+            res.status(400).send('Cannot create user')
+        })
+})
+
+
 
 
 

@@ -14,7 +14,8 @@ function getEmptyFilter() {
 
 function query(filterBy = getEmptyFilter()) {
     const queryParams = `?txt=${filterBy.txt}&sortBy=${filterBy.sortBy}&desc=${filterBy.desc}&label=${filterBy.label}`
-    return axios.get(URL + queryParams).then(res => res.data)
+    return axios.get(URL + queryParams)
+        .then(res => res.data)
 }
 
 function getById(bugId) {

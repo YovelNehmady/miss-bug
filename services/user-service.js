@@ -1,34 +1,31 @@
-const utilService = require('./util.service.js')
-let users = require('../data/user.json')
+const fs = require('fs')
+
+const Cryptr = require('cryptr')
+const cryptr = new Cryptr('secret-puk-1234')
+
+var users = require('../data/user.json')
 
 module.exports = {
     query,
-    save,
     get,
-    remove
+    remove,
+    login,
+    signup,
+    getLoginToken,
+    validateToken
+}
+function getLoginToken(user) {
+    return cryptr.encrypt(JSON.stringify(user))
 }
 
 function query(filterBy) {
-    let filterdUsers = users
-
-    if (filterBy.txt) {
-        const regex = new RegExp(filterBy.txt, 'i')
-        filterdUsers = filterdUsers.filter(user => regex.test(user.title) || regex.test(user.description))
-    }
-
-    if (filterBy.label) {
-        filterdUsers = filterdUsers.filter(user => user.labels.some(label => label === filterBy.label))
-    }
-
-    if (filterBy.sortBy) {
-        filterdUsers.sort((b1, b2) => (b1[filterBy.sortBy] - b2[filterBy.sortBy]) * filterBy.desc)
-    }
-
-    return Promise.resolve(filterdUsers)
+    let fillteredUsers = users
+    return Promise.resolve(fillteredUsers)
 }
 
 function get(userId) {
     const user = users.find(user => user._id === userId)
+    if (!user) return Promise.reject('User not found')
     return Promise.resolve(user)
 }
 
@@ -38,21 +35,50 @@ function remove(userId) {
     users.splice(idx, 1)
 }
 
-function save(user) {
-    if (user._id) {
-        const userToUpdate = users.find(currUser => currUser._id === user._id)
-        userToUpdate.title = user.title
-        userToUpdate.description = user.description
-        userToUpdate.severity = user.severity
-    } else {
-        user._id = utilService.makeId()
-        user.createdAt = Date.now()
-        users.push(user)
+function signup({ fullname, username, password }) {
+    const userToSave = {
+        _id: _makeId(),
+        fullname,
+        username,
+        password
     }
-    return utilService.writeUsersToFile(users).then(() => user)
+    users.push(userToSave)
+    return _writeUsersToFile().then(() => userToSave)
+}
+
+function login(credentials) {
+    const user = users.find(u => u.username === credentials.username)
+    if (!user) return Promise.reject('Login failed')
+    return Promise.resolve(user)
+}
+
+function validateToken(loginToken) {
+    try {
+        const json = cryptr.decrypt(loginToken)
+        const loggedinUser = JSON.parse(json)
+        return loggedinUser
+    } catch (err) {
+        console.log('Invalid login token')
+    }
+    return null
+}
+
+function _makeId(length = 5) {
+    let text = '';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
 }
 
 
-
-
-
+function _writeUsersToFile() {
+    return new Promise((res, rej) => {
+        const data = JSON.stringify(users, null, 2)
+        fs.writeFile('data/user.json', data, (err) => {
+            if (err) return rej(err)
+            res()
+        })
+    })
+}

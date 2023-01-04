@@ -16,7 +16,8 @@ export function BugIndex() {
 
 
     function loadBugs() {
-        bugService.query(filterBy).then(setBugs)
+        bugService.query(filterBy)
+        .then(setBugs)
     }
 
     function onRemoveBug(bugId) {
