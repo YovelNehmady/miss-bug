@@ -1,4 +1,4 @@
-const URL = '/api/bug/'
+const URL = 'https://miss-bug-j91v.onrender.com/api/bug/'
 
 export const bugService = {
     query,

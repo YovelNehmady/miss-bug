@@ -1,5 +1,5 @@
 
-const BASE_URL = '/api/user/'
+const BASE_URL = 'https://miss-bug-j91v.onrender.com/api/user/'
 
 export const userService = {
     get,
