@@ -1,6 +1,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const bugService = require('./services/bug-service.js')
+const userService = require('./services/user-service.js')
 
 const app = express()
 
@@ -8,7 +9,7 @@ app.use(express.static('public'))
 app.use(cookieParser())
 app.use(express.json())
 
-
+//Bug API
 //List
 app.get('/api/bug/', (req, res) => {
     const filterBy = req.query
@@ -55,6 +56,34 @@ app.delete('/api/bug/:bugId', (req, res) => {
     bugService.remove(bugId)
         .then(bugs => res.send(bugs))
 })
+
+//User API
+// List
+app.get('/api/user', (req, res) => {
+    const filterBy = req.query
+    userService.query(filterBy)
+        .then((users) => {
+            res.send(users)
+        })
+        .catch(err => {
+            console.log('Error:', err)
+            res.status(400).send('Cannot get users')
+        })
+})
+
+// Read
+app.get('/api/user/:userId', (req, res) => {
+    const { userId } = req.params
+        userService.get(userId)
+            .then((user) => {
+                res.send(user)
+            })
+            .catch(err => {
+                console.log('Error:', err)
+                res.status(400).send('Cannot get user')
+            })
+})
+
 
 
 app.listen(3030, () => console.log('Server ready at port 3030! http://localhost:3030/'))

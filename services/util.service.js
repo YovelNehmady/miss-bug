@@ -8,7 +8,7 @@ module.exports = {
 function writeBugsToFile(bugs) {
     return new Promise((res, rej) => {
         const data = JSON.stringify(bugs, null, 2)
-        fs.writeFile('data/bugs.json', data, (err) => {
+        fs.writeFile('data/bug.json', data, (err) => {
             if (err) return rej(err)
             res()
         })

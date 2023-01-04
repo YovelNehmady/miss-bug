@@ -1,5 +1,5 @@
 const utilService = require('./util.service.js')
-let bugs = require('../data/bugs.json')
+let bugs = require('../data/bug.json')
 
 module.exports = {
     query,
@@ -33,7 +33,11 @@ function get(bugId) {
 }
 
 function remove(bugId) {
-    bugs = bugs.filter(bug => bug._id !== bugId)
+    const idx = bugs.findIndex(bug => bug._id === bugId)
+    if (idx === -1) return Promise.reject('No such bug')
+    bugs.splice(idx, 1)
+
+    // bugs = bugs.filter(bug => bug._id !== bugId)
     return utilService.writeBugsToFile(bugs).then(() => bugs)
 }
 
