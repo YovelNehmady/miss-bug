@@ -51,7 +51,7 @@ function login(credentials) {
 }
 
 function getLoginToken(user) {
-    const miniUser = { fullname: user.fullname , _id: user._id }
+    const miniUser = { fullname: user.fullname , _id: user._id, isAdmin : user.isAdmin }
     return cryptr.encrypt(JSON.stringify(miniUser))
 }
 

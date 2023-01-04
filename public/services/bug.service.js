@@ -24,7 +24,7 @@ function getById(bugId) {
 }
 
 function remove(bugId) {
-    const path = URL + bugId + '/remove'
+    const path = URL + bugId
     return axios.delete(path).then(res => res.data)
 }
 

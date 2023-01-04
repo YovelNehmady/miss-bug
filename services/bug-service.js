@@ -1,6 +1,6 @@
 const utilService = require('./util.service.js')
 let bugs = require('../data/bug.json')
-const  userService  = require('./user-service.js')
+const userService = require('./user-service.js')
 
 module.exports = {
     query,
@@ -33,19 +33,21 @@ function get(bugId) {
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, miniUser) {
+    const validMiniUser = userService.validateToken(miniUser)
+    const userId = validMiniUser._id
     const idx = bugs.findIndex(bug => bug._id === bugId)
+    if (bugs[idx].creator._id !== userId && !validMiniUser.isAdmin) return Promise.reject()
     if (idx === -1) return Promise.reject('No such bug')
     bugs.splice(idx, 1)
-
-    // bugs = bugs.filter(bug => bug._id !== bugId)
-    return utilService.writeBugsToFile(bugs).then(() => bugs)
+    return utilService.writeBugsToFile(bugs)
 }
 
 function save(bug, miniUser) {
     const validMiniUser = userService.validateToken(miniUser)
-    const creator = { _id: validMiniUser._id, fullname: validMiniUser.fullname }
+    const creator = { _id: validMiniUser._id, fullname: validMiniUser.fullname, isAdmin: validMiniUser.isAdmin }
     if (bug._id) {
+        if (bug.creator._id !== creator._id && !creator.isAdmin) return Promise.reject()
         const bugToUpdate = bugs.find(currBug => currBug._id === bug._id)
         bugToUpdate.title = bug.title
         bugToUpdate.description = bug.description

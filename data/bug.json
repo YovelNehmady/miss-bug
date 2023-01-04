@@ -1,21 +1,5 @@
 [
   {
-    "_id": "abc111",
-    "title": "have nothing to bing in Netflix",
-    "description": "problem when spend time",
-    "severity": 10,
-    "createdAt": 1542107359454,
-    "labels": [
-      "critical",
-      "need-CR",
-      "dev-branch"
-    ],
-    "creator": {
-      "_id": "u101",
-      "fullname": "Puki Ja"
-    }
-  },
-  {
     "_id": "abc222",
     "title": "Cannot save a Car",
     "description": "problem when clicking Save",
@@ -34,7 +18,7 @@
     "_id": "abc333",
     "title": "Cannot edit a Car",
     "description": "problem when clicking Edit",
-    "severity": 3,
+    "severity": 365,
     "createdAt": 1542107359189,
     "labels": [
       "need-CR",
@@ -43,17 +27,6 @@
     "creator": {
       "_id": "CayA7",
       "fullname": "Luli La"
-    }
-  },
-  {
-    "title": "yovel",
-    "description": "too sexi",
-    "severity": 69,
-    "_id": "5s8NG",
-    "createdAt": 1672863523814,
-    "creator": {
-      "_id": "u101",
-      "fullname": "Puki Ja"
     }
   }
 ]

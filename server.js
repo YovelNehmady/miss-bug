@@ -19,9 +19,14 @@ app.get('/api/bug/', (req, res) => {
 
 //Update - put
 app.put('/api/bug/:bugId', (req, res) => {
+    const miniUser = req.cookies.loginToken
     const bug = req.body
-    bugService.save(bug)
+    bugService.save(bug, miniUser)
         .then(savedBug => res.send(savedBug))
+        .catch(err => {
+            console.log('Error:', err)
+            res.status(401).send('Unauthorized')
+        })
 })
 
 
@@ -31,6 +36,7 @@ app.post('/api/bug/', (req, res) => {
     const bug = req.body
     bugService.save(bug, miniUser)
         .then(savedBug => res.send(savedBug))
+
 })
 
 //Read
@@ -53,9 +59,14 @@ app.get('/api/bug/:bugId', (req, res) => {
 
 //Remove
 app.delete('/api/bug/:bugId', (req, res) => {
+    const miniUser = req.cookies.loginToken
     const { bugId } = req.params
-    bugService.remove(bugId)
+    bugService.remove(bugId, miniUser)
         .then(bugs => res.send(bugs))
+        .catch(err => {
+            console.log('Error:', err)
+            res.status(401).send('Unauthorized')
+        })
 })
 
 //User API

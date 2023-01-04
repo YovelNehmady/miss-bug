@@ -33,6 +33,8 @@ export function BugIndex() {
                 showErrorMsg('Cannot remove bug')
             })
         }
+
+    
         
         function onAddBug() {
             const bug = {
